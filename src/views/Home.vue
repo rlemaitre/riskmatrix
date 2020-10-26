@@ -1,18 +1,5 @@
 <template>
-  <div class="container">
-    <div class="columns">
-      <div class="column is-full">
-        <div class="hero">
-          <div class="hero-body">
-            <div class="container">
-              <h1 class="title">Risk Matrix</h1>
-              <h2 class="subtitle">Determine the level of risk associated with a particular situation.</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="box">
+  <div class="box">
       <b-steps :rounded="false" v-model="activeStep">
         <b-step-item icon-pack="fas" icon="circle-notch">
           <div class="detail-container">
@@ -81,9 +68,9 @@
                 </div>
                 <div class="columns is-centered">
                   <div class="column is-half">
-                  <RiskMatrix :consequence="consequenceLevels[subject.selectedLevel]"
-                              :likelihood="likelinessLevels[likelihood]"></RiskMatrix>
-                </div>
+                    <RiskMatrix :consequence="consequenceLevels[subject.selectedLevel]"
+                                :likelihood="likelinessLevels[likelihood]"></RiskMatrix>
+                  </div>
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -91,7 +78,6 @@
         </b-step-item>
       </b-steps>
     </div>
-  </div>
 </template>
 
 <script>

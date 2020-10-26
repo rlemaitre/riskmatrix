@@ -5,7 +5,7 @@ import Buefy from 'buefy'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
+import 'bulma-social/bin/bulma-social.min.css'
 library.add(faUserSecret)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
