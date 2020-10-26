@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h1 class="title">The {{ overall ? 'overall' : ''}} level of risk {{ subject ? `on ${subject}` : ''}} is: <span :class="risk.className">{{ risk.label }}</span></h1>
+    <h1 class="title">The {{ overall ? 'overall' : '' }} level of risk {{ subject ? `on ${subject}` : '' }} is:
+      <span v-if="risk" :class="risk.className">{{ risk.label }}</span>
+    </h1>
   </div>
 </template>
 
