@@ -1,27 +1,36 @@
-image: node:9.11.1
+image: node:14.9.0
 
-before_script:
-  - yarn install
+cache:
+  untracked: true
+  paths:
+    - node_modules/
 
 stages:
-  - build
+  - setup
   - test
+  - build
+  - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm ci
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - npm run test:unit
+  only:
+    - master
 
 build:
   stage: build
   script:
-    - yarn build
-  cache:
-    paths:
-      - node_modules/
+    - npm run build
   artifacts:
-    expire_in: 30 days
     paths:
       - dist
-test:
-  stage: test
-  script:
-    - yarn test
-  cache:
-    paths:
-      - node_modules/
+  only:
+    - master
