@@ -1,29 +1,40 @@
-# riskmatrix
+= riskmatrix
 
-## Project setup
-```
+== Project setup
+
+[source,shell script]
+----
 yarn install
-```
+----
 
-### Compiles and hot-reloads for development
-```
+=== Compiles and hot-reloads for development
+
+[source,shell script]
+----
 yarn serve
-```
+----
 
-### Compiles and minifies for production
-```
+=== Compiles and minifies for production
+
+[source,shell script]
+----
 yarn build
-```
+----
 
-### Run your unit tests
-```
+=== Run your unit tests
+
+[source,shell script]
+----
 yarn test:unit
-```
+----
 
-### Lints and fixes files
-```
+=== Lints and fixes files
+
+[source,shell script]
+----
 yarn lint
-```
+----
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+=== Customize configuration
+
+See https://cli.vuejs.org/config/[Configuration Reference].
