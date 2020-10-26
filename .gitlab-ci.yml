@@ -1,0 +1,29 @@
+image: node:9.11.1
+
+before_script:
+  - yarn install --cache-folder .yarn
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - yarn build
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+  artifacts:
+    expire_in: 30 days
+    paths:
+      - dist
+test:
+  stage: test
+  script:
+    - yarn test
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
