@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+@import '~bulma/sass/utilities/all';
+$family-sans-serif: "Titillium Web", Avenir, Helvetica, Arial, sans-serif;
+$tabs-link-active-color: $primary;
+$tabs-link-active-border-bottom-color: $primary;
+$tabs-toggle-link-active-color: $primary-invert;
+$tabs-toggle-link-active-background-color: $primary;
+$tabs-toggle-link-active-border-color: $primary;
+$tabs-toggle-link-active-border-bottom-color: $primary;
+
+$lowest-risk-color:  #fee5d9;
+$low-risk-color:     #fcae91;
+$medium-risk-color:  #fb6a4a;
+$high-risk-color:    #de2d26;
+$highest-risk-color: #a50f15;
+$highest-risk-color-invert: findColorInvert($highest-risk-color);
+$high-risk-color-invert:    findColorInvert($high-risk-color);
+$medium-risk-color-invert:  findColorInvert($medium-risk-color);
+$low-risk-color-invert:     findColorInvert($low-risk-color);
+$lowest-risk-color-invert:  findColorInvert($lowest-risk-color);
+
+
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
