@@ -1,36 +1,60 @@
-image: node:14.9.0
+# ------------ Node Version ----------------------
+.node-image: &node-image
+  image: node:latest
 
-cache:
-  untracked: true
-  paths:
-    - node_modules/
-
+# ------------  CI Stages ------------------------
 stages:
-  - setup
-  - test
   - build
+  - lint-frontend
+  - unit-test
   - deploy
 
-setup:
-  stage: setup
-  script:
-    - npm ci
-  only:
-    - master
-
-test:
-  stage: test
-  script:
-    - npm run test:unit
-  only:
-    - master
-
-build:
+# ------------ Build Front End -------------------
+build-frontend:
+  <<: *node-image
   stage: build
+  artifacts:
+    untracked: true
+  cache:
+      paths:
+      - node_modules/
   script:
-    - npm run build
+    - yarn install
+    - yarn run build
+# ------------ End of Build Front End ------------
+
+# ------------ Lint Front End --------------------
+lint-frontend:
+  <<: *node-image
+  stage: lint-frontend
+  dependencies:
+    - build-frontend
+  script:
+    - yarn run ci:lint
+# ------------ End of Lint Front End -------------
+
+# ------------ Unit Test Front End ---------------
+test-frontend:
+  <<: *node-image
+  stage: unit-test
+  dependencies:
+    - build-frontend
+  script:
+    - yarn run test:unit
+# ------------ End of Unit Test Front End --------
+
+# ------------ Deploy Front End ------------------
+pages:
+  <<: *node-image
+  stage: deploy
+  dependencies:
+      - build-frontend
+  script:
+    - mv public public-vue
+    - mv dist public
   artifacts:
     paths:
-      - dist
+      - public
   only:
     - master
+# ------------ End of Deploy Front End -----------
