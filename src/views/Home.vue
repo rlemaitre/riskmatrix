@@ -1,83 +1,82 @@
 <template>
   <div class="box">
-      <b-steps :rounded="false" v-model="activeStep">
-        <b-step-item icon-pack="fas" icon="circle-notch">
-          <div class="detail-container">
-            <h1 class="subtitle">How likely is your situation?</h1>
-            <section class="section has-text-left">
-              <div class="field" v-for="level in likelinessLevels" :key="level.index">
-                <b-radio v-model="likelihood" :native-value="level.index">{{ level.description }}
-                </b-radio>
+    <b-steps :rounded="false" v-model="activeStep">
+      <b-step-item icon-pack="fas" icon="circle-notch">
+        <div class="detail-container">
+          <h1 class="subtitle">How likely is your situation?</h1>
+          <section class="section has-text-left">
+            <div class="field" v-for="level in likelinessLevels" :key="level.index">
+              <b-radio v-model="likelihood" :native-value="level.index">{{ level.description }}</b-radio>
+            </div>
+          </section>
+        </div>
+      </b-step-item>
+      <b-step-item icon-pack="fas" icon="sliders-h">
+        <div class="detail-container">
+          <h1 class="subtitle">On which criteria do you want to rate the consequences of the situation?</h1>
+          <section class="section has-text-left">
+            <div class="field" v-for="subject in subjects" :key="subject.name">
+              <b-checkbox v-model="subject.used" :true-value="true" :false-value="false">
+                {{ subject.name }}
+              </b-checkbox>
+            </div>
+          </section>
+        </div>
+      </b-step-item>
+      <b-step-item v-for="subject in usedSubjects" :key="subject.name" icon-pack="fas" :icon="subject.icon">
+        <div class="detail-container">
+          <h1 class="subtitle">{{ subject.question }}</h1>
+          <section class="section has-text-left">
+            <div class="field" v-for="level in consequenceLevels" :key="level.index">
+              <b-radio v-model="subject.selectedLevel" :native-value="level.index">
+                {{ subject.levels[level.index] }}
+              </b-radio>
+            </div>
+          </section>
+        </div>
+      </b-step-item>
+      <b-step-item icon-pack="fas" icon="flag-checkered">
+        <div class="detail-container">
+          <b-tabs v-model="activeTab" position="is-centered" type="is-toggle" expanded>
+            <b-tab-item headerClass="has-text-primary" label="Overall">
+              <div class="columns">
+                <div class="column is-full">
+                  <RiskSummary v-if="overallRisk()" :risk="overallRisk()" :overall="true"></RiskSummary>
+                </div>
               </div>
-            </section>
-          </div>
-        </b-step-item>
-        <b-step-item icon-pack="fas" icon="sliders-h">
-          <div class="detail-container">
-            <h1 class="subtitle">On which criteria do you want to rate the consequences of the situation?</h1>
-            <section class="section has-text-left">
-              <div class="field" v-for="subject in subjects" :key="subject.name">
-                <b-checkbox v-model="subject.used" :true-value="true" :false-value="false">
-                  {{ subject.name }}
-                </b-checkbox>
+              <div class="columns">
+                <article class="column is-full message" v-if="overallRisk()">
+                  <div class="message-body">
+                    {{ overallRisk().mitigation }}
+                  </div>
+                </article>
               </div>
-            </section>
-          </div>
-        </b-step-item>
-        <b-step-item v-for="subject in usedSubjects" :key="subject.name" icon-pack="fas" :icon="subject.icon">
-          <div class="detail-container">
-            <h1 class="subtitle">{{ subject.question }}</h1>
-            <section class="section has-text-left">
-              <div class="field" v-for="level in consequenceLevels" :key="level.index">
-                <b-radio v-model="subject.selectedLevel" :native-value="level.index">
-                  {{ subject.levels[level.index] }}
-                </b-radio>
+              <div class="columns is-centered">
+                <div class="column is-half">
+                  <RiskMatrix :consequence="consequenceLevels[overallConsequence()]"
+                              :likelihood="likelinessLevels[likelihood]"></RiskMatrix>
+                </div>
               </div>
-            </section>
-          </div>
-        </b-step-item>
-        <b-step-item icon-pack="fas" icon="flag-checkered">
-          <div class="detail-container">
-            <b-tabs v-model="activeTab" position="is-centered" type="is-toggle" expanded>
-              <b-tab-item headerClass="has-text-primary" label="Overall">
-                <div class="columns">
-                  <div class="column is-full">
-                    <RiskSummary v-if="overallRisk()" :risk="overallRisk()" :overall="true"></RiskSummary>
-                  </div>
+            </b-tab-item>
+            <b-tab-item v-for="subject in usedSubjects" :key="subject.name" icon-pack="fas" :icon="subject.icon"
+                        :label="subject.name">
+              <div class="columns">
+                <div class="column is-full">
+                  <RiskSummary :risk="risk(subject)" :subject="subject.name"></RiskSummary>
                 </div>
-                <div class="columns">
-                  <article class="column is-full message" v-if="overallRisk()">
-                    <div class="message-body">
-                      {{ overallRisk().mitigation }}
-                    </div>
-                  </article>
+              </div>
+              <div class="columns is-centered">
+                <div class="column is-half">
+                  <RiskMatrix :consequence="consequenceLevels[subject.selectedLevel]"
+                              :likelihood="likelinessLevels[likelihood]"></RiskMatrix>
                 </div>
-                <div class="columns is-centered">
-                  <div class="column is-half">
-                    <RiskMatrix :consequence="consequenceLevels[overallConsequence()]"
-                                :likelihood="likelinessLevels[likelihood]"></RiskMatrix>
-                  </div>
-                </div>
-              </b-tab-item>
-              <b-tab-item v-for="subject in usedSubjects" :key="subject.name" icon-pack="fas" :icon="subject.icon"
-                          :label="subject.name">
-                <div class="columns">
-                  <div class="column is-full">
-                    <RiskSummary :risk="risk(subject)" :subject="subject.name"></RiskSummary>
-                  </div>
-                </div>
-                <div class="columns is-centered">
-                  <div class="column is-half">
-                    <RiskMatrix :consequence="consequenceLevels[subject.selectedLevel]"
-                                :likelihood="likelinessLevels[likelihood]"></RiskMatrix>
-                  </div>
-                </div>
-              </b-tab-item>
-            </b-tabs>
-          </div>
-        </b-step-item>
-      </b-steps>
-    </div>
+              </div>
+            </b-tab-item>
+          </b-tabs>
+        </div>
+      </b-step-item>
+    </b-steps>
+  </div>
 </template>
 
 <script>
@@ -94,7 +93,7 @@ export default {
   name: 'Home',
   data: () => {
     return {
-      likelihood: undefined,
+      likelihood: Likeliness.notLikely.index,
       activeTab: 0,
       activeStep: 0,
       subjects: [Subjects.performance, Subjects.safety, Subjects.asset, Subjects.schedule, Subjects.cost]

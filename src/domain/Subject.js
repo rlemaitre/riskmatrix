@@ -1,3 +1,5 @@
+import Consequences from '@/domain/Consequences'
+
 export class Subject {
   constructor (props) {
     this.name = props.name
@@ -22,7 +24,7 @@ const performance = new Subject({
     'Unable to achieve the overall goal'
   ],
   used: true,
-  selectedLevel: null
+  selectedLevel: Consequences.lowest.index
 })
 const safety = new Subject({
   name: 'Human safety',
@@ -36,7 +38,7 @@ const safety = new Subject({
     'Loss of life',
   ],
   used: true,
-  selectedLevel: null
+  selectedLevel: Consequences.lowest.index
 })
 const asset = new Subject({
   name: 'Asset integrity',
@@ -50,7 +52,7 @@ const asset = new Subject({
     'Destroyed',
   ],
   used: true,
-  selectedLevel: null
+  selectedLevel: Consequences.lowest.index
 })
 const schedule = new Subject({
   name: 'Project schedule',
@@ -64,7 +66,7 @@ const schedule = new Subject({
     'Critical milestones cannot be met',
   ],
   used: true,
-  selectedLevel: null
+  selectedLevel: Consequences.lowest.index
 })
 const cost = new Subject({
   name: 'Project cost',
@@ -78,7 +80,7 @@ const cost = new Subject({
     'Critical impact on cost (cost variance > 15%)',
   ],
   used: true,
-  selectedLevel: null
+  selectedLevel: Consequences.lowest.index
 })
 const all = [
   performance,
