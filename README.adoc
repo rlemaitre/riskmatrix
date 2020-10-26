@@ -1,4 +1,16 @@
-= riskmatrix
+= Risk Matrix
+
+This project is inspired by the article https://nesslabs.com/nasa-risk-matrix[Managing risk with the NASA Risk Matrix] published on https://nesslabs.com/[Ness Labs] by https://nesslabs.com/author/annelaure[Anne-Laure Le Cunff].
+
+It uses:
+
+- https://vuejs.org[Vue.js]
+- https://bulma.io/[Bulma]
+- https://buefy.org/[Buefy]
+- https://fontawesome.com/[Font Awesome 5]
+- https://aldi.github.io/bulma-social/[Bulma Social]
+
+The favicon is made by https://www.flaticon.com/authors/freepik[Freepik] from https://www.flaticon.com/[Flaticon]
 
 == Project setup
 

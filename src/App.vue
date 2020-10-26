@@ -28,6 +28,10 @@
           published on <a href="https://nesslabs.com">Ness Labs</a> by
           <a href="https://nesslabs.com/author/annelaure">Anne-Laure Le Cunff</a>.
         </div>
+        <div class="has-text-centered">
+          Favicon made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+          from <a href="https://www.flaticon.com/" title="Flaticon">Flaticon</a>
+        </div>
       </div>
       <div class="column">
         <a href="https://gitlab.com/rlemaitre/riskmatrix" class="button is-medium is-gitlab">
