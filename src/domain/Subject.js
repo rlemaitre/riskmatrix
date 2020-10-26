@@ -41,7 +41,7 @@ const safety = new Subject({
 const asset = new Subject({
   name: 'Asset integrity',
   icon: 'wrench',
-  question: 'What would be the impact on asset?',
+  question: 'What would be the impact on asset integrity?',
   levels: [
     'No physical damage',
     'Cosmetic damage',
